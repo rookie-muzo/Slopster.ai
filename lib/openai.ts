@@ -35,10 +35,12 @@ export async function generateScript(params: ScriptParams) {
   })
 
   const content = completion.choices[0].message.content
-  const script = content ? JSON.parse(content) : null
+  if (!content) {
+    throw new Error('Failed to generate script from OpenAI')
+  }
 
   return {
-    script,
+    script: JSON.parse(content),
     usage: completion.usage,
     cost: calculateCost(completion.usage),
   }
@@ -79,7 +81,10 @@ export async function analyzeVirality(script: string): Promise<ViralityAnalysis>
   })
 
   const content = completion.choices[0].message.content
-  return content ? JSON.parse(content) : null
+  if (!content) {
+    throw new Error('Failed to generate virality analysis from OpenAI')
+  }
+  return JSON.parse(content)
 }
 
 function calculateCost(usage: any) {
