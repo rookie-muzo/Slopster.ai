@@ -1,11 +1,10 @@
 'use server'
 
-import { createClient as createServerClient } from './server'
-import { createClient as createBrowserClient } from './client'
+import { createClient } from './server'
 
 // Projects
 export async function getProjects(userId: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('projects')
     .select('*')
@@ -14,7 +13,7 @@ export async function getProjects(userId: string) {
 }
 
 export async function getProject(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('projects')
     .select('*')
@@ -27,7 +26,7 @@ export async function createProject(data: {
   title: string
   description?: string
 }) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('projects')
     .insert(data)
@@ -39,7 +38,7 @@ export async function updateProject(
   id: string,
   data: { title?: string; description?: string }
 ) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('projects')
     .update(data)
@@ -49,13 +48,13 @@ export async function updateProject(
 }
 
 export async function deleteProject(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase.from('projects').delete().eq('id', id)
 }
 
 // Scripts
 export async function getScripts(projectId: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('scripts')
     .select('*')
@@ -64,7 +63,7 @@ export async function getScripts(projectId: string) {
 }
 
 export async function getScript(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('scripts')
     .select('*')
@@ -80,7 +79,7 @@ export async function createScript(data: {
   tone: 'casual' | 'professional' | 'humorous' | 'inspirational'
   cost?: number
 }) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('scripts')
     .insert(data)
@@ -89,13 +88,13 @@ export async function createScript(data: {
 }
 
 export async function deleteScript(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase.from('scripts').delete().eq('id', id)
 }
 
 // Videos
 export async function getVideos(projectId: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('videos')
     .select('*, jobs(*)')
