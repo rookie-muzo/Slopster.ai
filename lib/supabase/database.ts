@@ -103,7 +103,7 @@ export async function getVideos(projectId: string) {
 }
 
 export async function getVideo(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('videos')
     .select('*, jobs(*)')
@@ -116,7 +116,7 @@ export async function createVideo(data: {
   original_url: string
   metadata?: any
 }) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('videos')
     .insert(data)
@@ -132,7 +132,7 @@ export async function updateVideo(
     metadata?: any
   }
 ) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('videos')
     .update(data)
@@ -142,13 +142,13 @@ export async function updateVideo(
 }
 
 export async function deleteVideo(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase.from('videos').delete().eq('id', id)
 }
 
 // Jobs
 export async function getJobs(videoId: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('jobs')
     .select('*')
@@ -157,7 +157,7 @@ export async function getJobs(videoId: string) {
 }
 
 export async function getJob(id: string) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('jobs')
     .select('*')
@@ -166,7 +166,7 @@ export async function getJob(id: string) {
 }
 
 export async function createJob(data: { video_id: string }) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('jobs')
     .insert(data)
@@ -183,7 +183,7 @@ export async function updateJob(
     output_url?: string
   }
 ) {
-  const supabase = await createServerClient()
+  const supabase = await createClient()
   return supabase
     .from('jobs')
     .update(data)
