@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Logo from '../slopsterlogo.webp'
 import { Button } from '../components/ui/Button'
 import { Container } from '../components/ui/Container'
+import { Bot, Scissors, Gauge } from 'lucide-react'
 
 export default function HomePage() {
   return (
@@ -34,22 +35,22 @@ export default function HomePage() {
       <section className="pb-28">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          <div className="surface hairline rounded-xl p-6">
-            <div className="mb-4 text-3xl" aria-hidden>🤖</div>
+            <div className="surface hairline rounded-xl p-6">
+              <Bot className="mb-4 h-6 w-6 text-foreground" aria-hidden />
             <h3 className="text-xl font-medium mb-2">AI script & hook</h3>
             <p className="text-sm text-muted">
               Generate tight scripts with hooks, beats and CTAs. Keep your tone, lose the ramble.
             </p>
           </div>
           <div className="surface hairline rounded-xl p-6">
-            <div className="mb-4 text-3xl" aria-hidden>✂️</div>
+              <Scissors className="mb-4 h-6 w-6 text-foreground" aria-hidden />
             <h3 className="text-xl font-medium mb-2">Auto edit & captions</h3>
             <p className="text-sm text-muted">
               Jump-cuts, silence removal, kinetic captions and timing you’d swear a human did.
             </p>
           </div>
           <div className="surface hairline rounded-xl p-6">
-            <div className="mb-4 text-3xl" aria-hidden>📈</div>
+              <Gauge className="mb-4 h-6 w-6 text-foreground" aria-hidden />
             <h3 className="text-xl font-medium mb-2">Optimizer that cares</h3>
             <p className="text-sm text-muted">
               Thumbnails, hashtags and post timing. Helpful scores, no shaming.

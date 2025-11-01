@@ -2,6 +2,9 @@
 
 import { useState, useRef } from 'react'
 import { formatFileSize } from '@/lib/utils'
+import { Button } from './ui/Button'
+import { Progress } from './ui/Progress'
+import { Upload } from 'lucide-react'
 
 interface VideoUploaderProps {
   projectId: string
@@ -98,35 +101,19 @@ export default function VideoUploader({ projectId }: VideoUploaderProps) {
   return (
     <div className="space-y-4">
       {error && (
-        <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
-          <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+        <div className="rounded-xl hairline p-3">
+          <p className="text-sm">{error}</p>
         </div>
       )}
 
       {!file ? (
         <div
           onClick={() => fileInputRef.current?.click()}
-          className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-500 dark:hover:border-blue-400 cursor-pointer transition-colors"
+          className="rounded-xl border border-dashed border-[#2a2b2f] p-8 text-center hover:border-foreground cursor-pointer transition-colors"
         >
-          <svg
-            className="mx-auto h-12 w-12 text-gray-400"
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 48 48"
-          >
-            <path
-              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Click to upload video
-          </p>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
-            MP4, MOV, AVI up to 2GB
-          </p>
+          <Upload className="mx-auto h-8 w-8 text-muted" />
+          <p className="mt-2 text-sm text-muted">Click to upload video</p>
+          <p className="mt-1 text-xs text-muted">MP4, MOV, AVI up to 2GB</p>
           <input
             ref={fileInputRef}
             type="file"
@@ -137,66 +124,33 @@ export default function VideoUploader({ projectId }: VideoUploaderProps) {
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-md">
+          <div className="p-4 rounded-xl hairline">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <svg
-                  className="h-8 w-8 text-blue-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                  />
-                </svg>
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded-lg bg-[#1a1b1e]" />
                 <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    {file.name}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {formatFileSize(file.size)}
-                  </p>
+                  <p className="text-sm font-medium">{file.name}</p>
+                  <p className="text-xs text-muted">{formatFileSize(file.size)}</p>
                 </div>
               </div>
               {!uploading && (
-                <button
-                  onClick={() => setFile(null)}
-                  className="text-gray-400 hover:text-gray-500"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                <button onClick={() => setFile(null)} className="text-muted hover:text-foreground">✕</button>
               )}
             </div>
 
             {uploading && (
               <div className="mt-4">
-                <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
-                  <span>Uploading...</span>
+                <div className="flex justify-between text-xs text-muted mb-1">
+                  <span>Uploading…</span>
                   <span>{progress}%</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                  <div
-                    className="bg-blue-600 h-2 rounded-full transition-all"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
+                <Progress value={progress} />
               </div>
             )}
           </div>
 
           {!uploading && (
-            <button
-              onClick={handleUpload}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Upload Video
-            </button>
+            <Button onClick={handleUpload} className="w-full">Upload video</Button>
           )}
         </div>
       )}

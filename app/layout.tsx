@@ -2,10 +2,14 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import NavBar from '../components/NavBar'
+import Footer from '../components/Footer'
 
 export const metadata: Metadata = {
   title: 'Slopster.ai - AI-Powered Video Editor',
   description: 'Turn raw ideas into viral social videos with AI',
+  icons: [
+    { rel: 'icon', url: '/slopOtransparent.webp', type: 'image/webp' },
+  ],
 }
 
 // Inter chosen for modern geometric simplicity
@@ -28,6 +32,7 @@ export default function RootLayout({
         </a>
         <NavBar />
         <main id="main-content">{children}</main>
+        <Footer />
       </body>
     </html>
   )

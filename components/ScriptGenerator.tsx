@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { Button } from './ui/Button'
+import { Input, Textarea, Label, Select } from './ui/Form'
 
 interface ScriptGeneratorProps {
   projectId: string
@@ -49,47 +51,35 @@ export default function ScriptGenerator({ projectId }: ScriptGeneratorProps) {
     <div className="space-y-4">
       <form onSubmit={handleGenerate} className="space-y-4">
         {error && (
-          <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
-            <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+          <div className="rounded-xl hairline p-3">
+            <p className="text-sm">{error}</p>
           </div>
         )}
 
         <div>
-          <label htmlFor="prompt" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Your Video Idea
-          </label>
-          <textarea
+          <Label htmlFor="prompt" className="mb-1">Your video idea</Label>
+          <Textarea
             id="prompt"
             rows={3}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="E.g., A quick tutorial on how to make sourdough bread for beginners"
-            className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2"
             required
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label htmlFor="platform" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Platform
-            </label>
-            <select
-              id="platform"
-              value={platform}
-              onChange={(e) => setPlatform(e.target.value as any)}
-              className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2"
-            >
+            <Label htmlFor="platform" className="mb-1">Platform</Label>
+            <Select id="platform" value={platform} onChange={(e) => setPlatform(e.target.value as any)}>
               <option value="tiktok">TikTok</option>
               <option value="youtube-shorts">YouTube Shorts</option>
               <option value="instagram-reels">Instagram Reels</option>
-            </select>
+            </Select>
           </div>
 
           <div>
-            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Duration ({duration}s)
-            </label>
+            <Label htmlFor="duration" className="mb-1">Duration ({duration}s)</Label>
             <input
               type="range"
               id="duration"
@@ -98,42 +88,29 @@ export default function ScriptGenerator({ projectId }: ScriptGeneratorProps) {
               step="5"
               value={duration}
               onChange={(e) => setDuration(parseInt(e.target.value))}
-              className="block w-full"
+              className="w-full accent-foreground"
             />
           </div>
 
           <div>
-            <label htmlFor="tone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Tone
-            </label>
-            <select
-              id="tone"
-              value={tone}
-              onChange={(e) => setTone(e.target.value as any)}
-              className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2"
-            >
+            <Label htmlFor="tone" className="mb-1">Tone</Label>
+            <Select id="tone" value={tone} onChange={(e) => setTone(e.target.value as any)}>
               <option value="casual">Casual</option>
               <option value="professional">Professional</option>
               <option value="humorous">Humorous</option>
               <option value="inspirational">Inspirational</option>
-            </select>
+            </Select>
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? 'Generating...' : 'Generate Script'}
-        </button>
+        <Button type="submit" disabled={loading} className="w-full">
+          {loading ? 'Generating…' : 'Generate script'}
+        </Button>
       </form>
 
       {generatedScript && (
-        <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-md">
-          <p className="text-sm text-green-800 dark:text-green-200">
-            Script generated successfully! Refresh to see it in the list.
-          </p>
+        <div className="mt-4 rounded-xl hairline p-3 text-sm">
+          Script generated. Refresh to see it in the list.
         </div>
       )}
     </div>
