@@ -1,10 +1,15 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Inter } from 'next/font/google'
+import NavBar from '../components/NavBar'
 
 export const metadata: Metadata = {
   title: 'Slopster.ai - AI-Powered Video Editor',
   description: 'Turn raw ideas into viral social videos with AI',
 }
+
+// Inter chosen for modern geometric simplicity
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 
 export default function RootLayout({
   children,
@@ -12,8 +17,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="bg-background text-foreground">
+      <body className={`${inter.variable} font-sans antialiased`}>
+        {/* Skip link for a11y */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 rounded-xl bg-foreground px-4 py-2 text-background"
+        >
+          Skip to content
+        </a>
+        <NavBar />
+        <main id="main-content">{children}</main>
+      </body>
     </html>
   )
 }

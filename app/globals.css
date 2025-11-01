@@ -2,27 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Design system tokens (dark-first)
+  - Keep colors neutral and high-contrast; subtle accent for interactions.
+  - These map into Tailwind via theme.extend.colors in tailwind.config.ts.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core surfaces */
+  --background: #0b0b0c; /* near-black */
+  --foreground: #f2f2f2; /* off-white for more comfortable reading */
+  --muted: #9ca3af;      /* gray-400/500 equivalent for secondary text */
+  --border: #1f1f22;     /* subtle hairline borders */
+  --surface: #101113;    /* elevated surfaces */
+
+  /* Accent is restrained; used for interactive states and rings */
+  --accent: #e5e7eb;      /* gray-200 on dark */
+  --accent-foreground: #0b0b0c;
+
+  /* Effects */
+  --ring: #e5e7eb;        /* focus-visible outline */
+  --shadow: 0 8px 30px rgba(0,0,0,0.35);
+
+  /* Typography rhythm */
+  --leading: 1.5;
+  --tracking: 0.01em; /* wide kerning vibe without hurting legibility */
 }
 
-@media (prefers-color-scheme: dark) {
+html {
+  /* Reserve space for the scrollbar on both sides to keep true visual center on Windows */
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Light mode fallback if needed in the future */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #0b0b0c;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --surface: #f9fafb;
+    --accent: #111827;
+    --accent-foreground: #ffffff;
+    --ring: #111827;
   }
 }
 
+/* Base global styles */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: var(--leading);
+  letter-spacing: var(--tracking);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* prevent tiny overflows from shifting layout off-center */
+}
+
+/* Selection and focus to feel intentional and accessible */
+::selection {
+  background: rgba(229, 231, 235, 0.2);
+  color: var(--foreground);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Subtle depth utility for elevated blocks */
+  .surface {
+    background-color: var(--surface);
+    box-shadow: var(--shadow);
+  }
+
+  /* Hairline border utility for separators/cards */
+  .hairline {
+    border: 1px solid var(--border);
   }
 }
 

@@ -1,56 +1,78 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import Logo from '../slopsterlogo.webp'
+import { Button } from '../components/ui/Button'
+import { Container } from '../components/ui/Container'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <main className="text-center px-4">
-        <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Slopster.ai
+    <div className="min-h-[calc(100vh-4rem)]">
+      {/* Hero: bold, minimal, anchored by logo */}
+      <section className="flex flex-col items-center gap-8 pt-24 pb-20 text-center">
+        <Container className="flex flex-col items-center gap-8">
+        <Image src={Logo} alt="Slopster" className="h-10 w-auto opacity-90" priority />
+        <h1 className="text-5xl md:text-7xl font-medium tracking-wide2 max-w-4xl">
+          Make content people actually watch.
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl">
-          Turn raw ideas into viral social videos with AI
+        <p className="max-w-2xl text-lg text-muted">
+          Turn rough takes into crisp, captioned, algorithm-friendly shorts. Less polishing,
+          more publishing. Yes, even the messy bits.
         </p>
-        <div className="flex gap-4 justify-center">
-          <Link
-            href="/login"
-            className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-          >
-            Get Started
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link href="/signup">
+            <Button className="w-full sm:w-auto" size="lg">Start free</Button>
           </Link>
-          <Link
-            href="/signup"
-            className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors font-semibold"
-          >
-            Sign Up
+          <Link href="/login">
+            <Button variant="ghost" className="w-full sm:w-auto" size="lg">I already have chaos</Button>
           </Link>
         </div>
-        
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <div className="text-4xl mb-4">🤖</div>
-            <h3 className="text-lg font-semibold mb-2">AI Script Generator</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Generate viral scripts with hooks, CTAs, and perfect timing
+        <p className="text-xs text-muted">No credit card. Just vibes and an upload.</p>
+        </Container>
+      </section>
+
+      {/* Features grid: consistent modules, subtle depth */}
+      <section className="pb-28">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="surface hairline rounded-xl p-6">
+            <div className="mb-4 text-3xl" aria-hidden>🤖</div>
+            <h3 className="text-xl font-medium mb-2">AI script & hook</h3>
+            <p className="text-sm text-muted">
+              Generate tight scripts with hooks, beats and CTAs. Keep your tone, lose the ramble.
             </p>
           </div>
-          
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <div className="text-4xl mb-4">✂️</div>
-            <h3 className="text-lg font-semibold mb-2">Auto-Edit</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Trim, caption, and add transitions automatically
+          <div className="surface hairline rounded-xl p-6">
+            <div className="mb-4 text-3xl" aria-hidden>✂️</div>
+            <h3 className="text-xl font-medium mb-2">Auto edit & captions</h3>
+            <p className="text-sm text-muted">
+              Jump-cuts, silence removal, kinetic captions and timing you’d swear a human did.
             </p>
           </div>
-          
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-lg font-semibold mb-2">Virality Optimizer</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Get AI scores, hashtags, and optimal posting times
+          <div className="surface hairline rounded-xl p-6">
+            <div className="mb-4 text-3xl" aria-hidden>📈</div>
+            <h3 className="text-xl font-medium mb-2">Optimizer that cares</h3>
+            <p className="text-sm text-muted">
+              Thumbnails, hashtags and post timing. Helpful scores, no shaming.
             </p>
           </div>
-        </div>
-      </main>
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA band */}
+      <section className="pb-28">
+        <Container>
+          <div className="hairline rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-medium">Ship your next short in minutes</h2>
+              <p className="text-sm text-muted mt-2">The beautiful mess, neatly exported.</p>
+            </div>
+            <Link href="/signup">
+              <Button size="lg">Get started</Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
     </div>
   )
 }
