@@ -31,7 +31,12 @@ export default function SignupPage() {
     })
 
     if (error) {
-      setError(error.message)
+      const msg = error.message?.toLowerCase() || ''
+      if (msg.includes('signups not allowed') || msg.includes('signup_disabled')) {
+        setError("We're currently under construction, please check back later! :)")
+      } else {
+        setError(error.message)
+      }
       setLoading(false)
     } else {
       router.push('/dashboard')
@@ -51,7 +56,12 @@ export default function SignupPage() {
     })
 
     if (error) {
-      setError(error.message)
+      const msg = error.message?.toLowerCase() || ''
+      if (msg.includes('signups not allowed') || msg.includes('signup_disabled')) {
+        setError("We're currently under construction, please check back later! :)")
+      } else {
+        setError(error.message)
+      }
       setLoading(false)
     }
   }

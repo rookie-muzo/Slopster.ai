@@ -86,5 +86,14 @@ body {
   .hairline {
     border: 1px solid var(--border);
   }
+
+  /* Mascot idle bob animation */
+  @keyframes mascot-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .mascot-bob {
+    animation: mascot-bob 4s ease-in-out infinite;
+  }
 }
 
